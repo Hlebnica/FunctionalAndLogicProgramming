@@ -1,9 +1,15 @@
-% Факты о parentских отношениях
+% Факты о родительских отношениях
+father(Ivan, Stepan).
+father(Ivan, Fedor).
 father(Fedor, Olga).
 father(Fedor, Tatiana).
-father(Ivan, Fedor).
-father(Ivan, Stepan).
-mother(Mariya, Fedor).
+mother(Maria, Fedor).
+
+parent(Ivan, Stepan).
+parent(Ivan, Fedor).
+parent(Fedor, Olga).
+parent(Fedor, Tatiana).
+parent(Maria, Fedor).
 
 % Правила для вопросов
 

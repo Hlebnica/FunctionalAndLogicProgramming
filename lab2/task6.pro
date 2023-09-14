@@ -21,10 +21,10 @@ print_recent_film_title(Title) :-
 
 % Предикат для преобразования даты в год
 date_to_year(Date, Year) :-
-    atom_chars(Date, Chars),
-    append(_, [YearChar1,YearChar2,YearChar3,YearChar4|_], Chars),
-    atom_chars(YearAtom, [YearChar1,YearChar2,YearChar3,YearChar4]), 
-    atom_number(YearAtom, Year).
+    atom_chars(Date, Chars), % Преобразование атома Date в список символов Chars
+    append(_, [YearChar1,YearChar2,YearChar3,YearChar4|_], Chars), % Извлечение последних четырех символов из списка Chars и сохранение их в переменных YearChar1, YearChar2, YearChar3, YearChar4
+    atom_chars(YearAtom, [YearChar1,YearChar2,YearChar3,YearChar4]), % Преобразование списка символов [YearChar1,YearChar2,YearChar3,YearChar4] в атом YearAtom
+    atom_number(YearAtom, Year). % Преобразование атома YearAtom в число Year
 
 
 main :-

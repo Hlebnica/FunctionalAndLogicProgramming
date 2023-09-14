@@ -67,5 +67,15 @@ has_a_child(PersonX) :- parent(PersonX, _).
 
 % Задание 5
 % ----------------------------------------------------------------------------------------
+% Отношение "брат"
+brother(PersonX, PersonY) :- 
+    PersonX \= PersonY,  
+    parent(PersonZ, PersonX), 
+    parent(PersonZ, PersonY).
 
+% Отношение "дядя"
+uncle(PersonX, PersonY) :- 
+    PersonX \= PersonY,  
+    brother(PersonX, PersonZ),
+    parent(PersonZ, PersonY).
 % ----------------------------------------------------------------------------------------

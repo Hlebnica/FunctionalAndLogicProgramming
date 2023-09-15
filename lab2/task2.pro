@@ -18,10 +18,10 @@ parent_of_tatiana(X) :- parent(X, tatiana).
 ivan_childrens(X) :- parent(ivan, X).
 
 % 4) Кто является родителем родителя Ольги?
-parent_of_olga(X) :- parent(X, olga).
+parent_of_olga(X) :- parent(Y, olga), parent(X, Y).
 
 % 5) Кто внук Ивана?
-ivan_grandson(X) :- parent(ivan, Y), parent(Y, X).
+ivan_grandson(X) :- parent(ivan, Y), parent(Y, X), gender(X, male).
 
 % 6) Есть ли у Федора и Степана общий родитель?
 shared_parent(X, Y) :- parent(Z, X), parent(Z, Y), X \= Y.

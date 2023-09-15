@@ -1,19 +1,22 @@
-% Правило для вычисления НОД, когда X=Y
-gcd(X, Y, GCD) :-
-    X =:= Y,  % Если X равно Y, то НОД равен X или Y
-    GCD is X.
+% Правило для нахождения НОД, когда X=Y
+gcd(X, X, X).
 
-% Правило для вычисления НОД, когда X<Y
-gcd(X, Y, GCD) :-
+% Правило для нахождения НОД, когда X<Y
+gcd(X, Y, NOD) :-
     X < Y,
-    Difference is Y - X,  % Вычисляем разницу Y - X
-    gcd(X, Difference, GCD).
+    Diff is Y - X,
+    gcd(X, Diff, NOD).
 
-% Правило для вычисления НОД, когда X>Y
-gcd(X, Y, GCD) :-
+% Правило для нахождения НОД, когда X>Y
+gcd(X, Y, NOD) :-
     X > Y,
-    gcd(Y, X, GCD).  % Поменяем местами X и Y и вызовем предыдущее правило
+    gcd(Y, X, NOD).
 
-% Публичный предикат для вычисления НОД
-find_gcd(X, Y, GCD) :-
-    gcd(X, Y, GCD).
+% Запуск программы и запрос НОД
+task2:-
+    write('Input X: '), nl,
+    read(X),
+    write('Input Y: '), nl,
+    read(Y),
+    gcd(X, Y, NOD),
+    write('NOD: '), write(NOD).

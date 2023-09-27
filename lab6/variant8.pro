@@ -1,33 +1,32 @@
-% Определение графа. Здесь представлен ориентированный граф в виде списков смежности.
-% Каждый узел представлен фактом edge/2, где первый аргумент - исходный узел, а второй - узел, в который идет ребро.
-
+% Граф
 edge(a, b).
 edge(b, c).
-edge(b, d).
-edge(c, a).
-edge(d, e).
+edge(c, d).
+edge(d, a).
+edge(b, e).
 edge(e, f).
-edge(f, d).
+edge(f, g).
+edge(g, h).
+edge(h, e).
+edge(i, j).
+edge(j, k).
+edge(k, i).
 
-% Предикат для поиска цикла заданной длины в графе
-find_cycle(Graph, Length, Start, Path) :-
-    dfs(Graph, Length, Start, [], Path).
+% Поиск цикла заданной длины
+find_cycle(Length, Cycle) :-
+    find_cycle([], Length, Start, Cycle, Start).
 
-% Главный предикат для поиска в глубину с ограничением длины
-dfs(_, 0, Node, Path, [Node | Path]) :-
-    reverse([Node | Path], PathReversed),
-    cyclic(PathReversed). % Проверяем, является ли путь циклом.
-dfs(Graph, Length, Node, Visited, Path) :-
+find_cycle(_, 0, Start, [Start], End) :- % Нашли цикл заданной длины, проверяем замыкание
+    edge(Start, End).
+find_cycle(_, 1, Start, [Start], Start). % Цикл длины 1, замыкается сам на себя
+find_cycle(Visited, Length, Start, [Start | Rest], End) :-
     Length > 0,
-    edge(Node, Next), % Выбираем следующий узел.
-    \+ member(Next, Visited), % Проверяем, что узел не был посещен ранее.
+    edge(Start, Next), % Переходим к следующей вершине
+    \+ member(Next, Visited), % Проверяем, что не посещали эту вершину ранее
     NewLength is Length - 1,
-    dfs(Graph, NewLength, Next, [Node | Visited], Path).
-
-% Предикат для проверки, является ли список циклом
-cyclic(Path) :-
-    append(Start, End, Path), % Разбиваем путь на начало и конец.
-    append(End, Start, Path). % Обратно объединяем начало и конец, должно получиться исходный путь.
+    find_cycle([Start | Visited], NewLength, Next, Rest, End). % Рекурсивно ищем цикл
 
 % Пример использования:
-% find_cycle([a, b, c, d, e, f], 4, a, Cycle).
+% find_cycle(2, Cycle).
+% find_cycle(3, Cycle).
+

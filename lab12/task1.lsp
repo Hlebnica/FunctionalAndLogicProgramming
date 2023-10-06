@@ -1,10 +1,7 @@
-(defun mass-beheading (lists)
-  (if (null lists)
-      '() ; Если список списков пуст, возвращаем пустой список.
-      (cons (car (car lists)) ; Берем голову первого списка и добавляем в результат.
-            (mass-beheading (cdr lists))))) ; Рекурсивно вызываем функцию для оставшихся списков.
+(defun mass-beheading (&rest list-of-lists)
+  (if (null list-of-lists)
+      '()  ; Если список аргументов пуст, возврат пустого списка
+      (cons (caar list-of-lists)  ; Добавлением головы первого аргумента (списка)
+            (apply #'mass-beheading (cdr list-of-lists)))))  ; Рекурсивная обработка остальных аргументов
 
-; Пример использования:
-(setq input-lists '((1 2 3) (4 5 6) (7 8 9)))
-(format t "Входные данные: ~a~%" input-lists)
-(format t "Выходные данные: ~a~%" (mass-beheading input-lists))
+(format t "Выходные данные: ~a~%" (mass-beheading '(1 2 3) '(4 5 6) '(7 8 9)))
